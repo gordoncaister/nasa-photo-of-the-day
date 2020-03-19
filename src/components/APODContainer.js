@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from "react";
 import ImgDiv from "./ImgDiv"
 import Description from "./Description"
+import {Container} from "reactstrap";
 
 
 const axios = require('axios')
@@ -31,13 +32,16 @@ const APODContainer = () => {
     }
 
     return(
-
-    <div>
-       <ImgDiv url={data.hdurl} title={data.title}  date={date}/>
-       <button className="prev-btn" onClick={remDay}>Previous Days'</button>
-    <button className="next-btn" onClick={addDay}> Next Days'</button>
-       <Description exp={data.explanation}/>
-    </div>
+    
+    <Container fluid="true">
+        <ImgDiv url={data.hdurl} title={data.title}  date={date}/>
+        <Container fluid="lg">
+            <button className="prev-btn" onClick={remDay}>Previous Days'</button>
+            <button className="next-btn" onClick={addDay}> Next Days'</button>
+            <Description exp={data.explanation}/>
+        </Container>
+        
+    </Container>
 
     );
 };
