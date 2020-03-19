@@ -4,15 +4,16 @@ import Description from "./Description"
 
 
 const axios = require('axios')
+var moment = require('moment');
 
 
 const APODContainer = () => {
-    const date = new Date();
+    const [date,setDate] = useState(moment().format("YYYY-MM-D"))
     console.log(date);
     const [data, setData] = useState([]);
 
     useEffect( () => {
-        axios   .get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
+        axios   .get(`https://api.nasa.gov/planetary/apod?api_key=1ghqCsgv178u8x8fqt2XuDul5aKvIOJ4aZMttAYU&date=${date}`)
                 .then( response => {
                     setData(response.data)
                     return response;
@@ -22,11 +23,19 @@ const APODContainer = () => {
                 })
     }, []);
 
+    function remDay(date){
+        setDate(moment(date).subtract(1,'days'));
+    }
+    function addDay(date) {
+
+    }
+
     return(
 
     <div>
-        {console.log(data.hdurl)}
-       <ImgDiv url={data.hdurl} title={data.title}  date={data.date}/>
+       <ImgDiv url={data.hdurl} title={data.title}  date={date}/>
+       <button className="prev-btn" onClick={remDay}>Previous Days'</button>
+    <button className="next-btn" onClick={addDay}> Next Days'</button>
        <Description exp={data.explanation}/>
     </div>
 
